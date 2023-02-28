@@ -24,16 +24,29 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       .join(``)
       .toString();
 
-    // Add the new file to data
-    const con = fs.readFileSync("data.json").toString();
-    const newData = JSON.stringify({
-      ...JSON.parse(con),
+    const newEntity = {
       [key]: {
         name: filename,
         type: filetype,
       },
+    };
+
+    // Add the new file to data
+    fs.readFile("data.json", (err, data) => {
+      if (err) {
+        if (err.code === "ENOENT") {
+          fs.writeFileSync("data.json", JSON.stringify(newEntity));
+        } else {
+          throw err;
+        }
+      } else {
+        const con = fs.readFileSync("data.json").toString();
+        fs.writeFileSync(
+          "data.json",
+          JSON.stringify({ ...JSON.parse(con), newEntity })
+        );
+      }
     });
-    fs.writeFileSync("data.json", newData);
 
     // Delete file after a certain time
     setTimeout(() => {
