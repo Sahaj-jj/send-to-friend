@@ -16,5 +16,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     });
 
     fs.createReadStream(filename).pipe(res);
+
+    res.status(200);
   }
 }

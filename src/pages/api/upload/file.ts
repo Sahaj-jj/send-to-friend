@@ -43,7 +43,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     }, 1 * 60 * 1000);
 
     // Send the generated key as response
-    res.json({
+    res.status(200).json({
       key,
     });
   }
