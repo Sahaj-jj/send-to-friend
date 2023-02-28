@@ -1,12 +1,11 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
 import { useRef, useState } from "react";
+import FileUpload from "@/components/FileUpload";
 
 export default function Home() {
   const [key, setKey] = useState("");
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [file, setFile] = useState<File>();
 
   const [uploadFileKey, setUploadFileKey] = useState("");
 
@@ -22,8 +21,6 @@ export default function Home() {
   };
 
   const handleSend = async () => {
-    const file = fileInputRef.current?.files?.[0];
-
     if (!file) {
       return;
     }
@@ -64,9 +61,15 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
+      <main>
+        <FileUpload onFileChange={setFile} />
+        {file && (
+          <div>
+            <div>{file?.name}</div>
+            <div>{file?.size / (1024 * 1024)}</div>
+          </div>
+        )}
         <div>
-          <input type="file" ref={fileInputRef} />
           {uploadFileKey.length > 0 && <div>{`Key: ${uploadFileKey}`}</div>}
           <button onClick={handleSend}>Send</button>
         </div>
