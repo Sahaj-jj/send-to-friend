@@ -1,10 +1,7 @@
 /** @type {import('next').NextConfig} */
 
-module.exports = module.exports = {
+module.exports = {
   reactStrictMode: true,
-  env: {
-    BASE_URL: "https://send-to-friend.vercel.app",
-  },
   async headers() {
     return [
       {
