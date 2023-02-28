@@ -1,6 +1,8 @@
 import React, { ReactEventHandler, useRef, useState } from "react";
 
-const FileUpload: React.FC = ({ onFileChange }) => {
+const FileUpload: React.FC<{
+  onFileChange: (file: File | undefined) => void;
+}> = ({ onFileChange }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
