@@ -11,7 +11,7 @@ export default function Home() {
 
   const handleReceive = async () => {
     const res = await fetch(
-      `${process.env.BASE_URL}/api/download/file?key=${key}`,
+      `${process.env.VERCEL_URL}/api/download/file?key=${key}`,
       {
         method: "GET",
       }
@@ -35,7 +35,7 @@ export default function Home() {
       const chunk = event.target.result as ArrayBuffer;
 
       const res = await fetch(
-        `${process.env.BASE_URL}/api/upload/file?filename=${file.name}&filetype=${file.type}`,
+        `${process.env.VERCEL_URL}/api/upload/file?filename=${file.name}&filetype=${file.type}`,
         {
           method: "POST",
           headers: {
